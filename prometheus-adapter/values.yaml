@@ -41,7 +41,7 @@ resources: {}
   #   memory: 128Mi
 
 rules:
-  default: true
+  default: false
   custom: 
   - seriesQuery: '{__name__="node_memory_Active_bytes"}'
     seriesFilters: []
