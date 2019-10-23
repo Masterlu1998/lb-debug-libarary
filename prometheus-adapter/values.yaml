@@ -43,7 +43,7 @@ resources: {}
 rules:
   default: false
   custom: 
-  - seriesQuery: 'node_memory_Active_bytes{namespace!="",pod_name!=""}'
+  - seriesQuery: 'node_memory_Active_bytes'
     seriesFilters: []
     resources:
       overrides:
