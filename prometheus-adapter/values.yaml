@@ -43,14 +43,14 @@ resources: {}
 rules:
   default: false
   custom: 
-  - seriesQuery: 'node_memory_Active_bytes{namespace!="",kubernetes_pod_name!=""}'
+  - seriesQuery: 'node_memory_Active_bytes'
     resources:
       overrides:
         kubernetes_namespace:
           resource: namespace
         kubernetes_pod_name: 
           resource: pods
-    metricsQuery: 'node_memory_Active_bytes'
+    metricsQuery: 'node_memory_Active_bytes by (<<.GroupBy>>)'
   # - seriesQuery: '{__name__=~"^some_metric_count$"}'
   #   resources:
   #     template: <<.Resource>>
