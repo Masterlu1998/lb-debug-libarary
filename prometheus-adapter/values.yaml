@@ -43,7 +43,7 @@ resources: {}
 rules:
   default: false
   custom: 
-  - seriesQuery: 'node_memory_Active_bytes{namespace!="",pod!=""}'
+  - seriesQuery: 'go_memstats_heap_objects{namespace!="",pod!=""}'
     resources:
       overrides:
         namespace:
