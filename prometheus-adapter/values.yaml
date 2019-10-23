@@ -51,7 +51,7 @@ rules:
           resource: namespace
         pod_name: 
           resource: pods
-    metricsQuery: '(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)'
+    metricsQuery: 'node_memory_Active_bytes'
   # - seriesQuery: '{__name__=~"^some_metric_count$"}'
   #   resources:
   #     template: <<.Resource>>
