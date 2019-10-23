@@ -86,19 +86,19 @@ rules:
           pod_name:
             resource: pod
       containerLabel: container_name
-    # memory:
-    #   containerQuery: sum(container_memory_working_set_bytes{<<.LabelMatchers>>}) by (<<.GroupBy>>)
-    #   nodeQuery: sum(container_memory_working_set_bytes{<<.LabelMatchers>>,id='/'}) by (<<.GroupBy>>)
-    #   resources:
-    #     overrides:
-    #       instance:
-    #         resource: node
-    #       namespace:
-    #         resource: namespace
-    #       pod_name:
-    #         resource: pod
-    #   containerLabel: container_name
-    # window: 3m
+    memory:
+      containerQuery: sum(container_memory_working_set_bytes{<<.LabelMatchers>>}) by (<<.GroupBy>>)
+      nodeQuery: sum(container_memory_working_set_bytes{<<.LabelMatchers>>,id='/'}) by (<<.GroupBy>>)
+      resources:
+        overrides:
+          instance:
+            resource: node
+          namespace:
+            resource: namespace
+          pod_name:
+            resource: pod
+      containerLabel: container_name
+    window: 3m
 
 service:
   annotations: {}
