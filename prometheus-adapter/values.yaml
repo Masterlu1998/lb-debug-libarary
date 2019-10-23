@@ -43,7 +43,7 @@ resources: {}
 rules:
   default: true
   custom: 
-  - seriesQuery: '{__name__=~"^container_.*",container_name!="POD",namespace!="",pod!=""}'
+  - seriesQuery: '{__name__="node_memory_Active_bytes"}'
     seriesFilters: []
     resources:
       overrides:
@@ -54,7 +54,7 @@ rules:
     name:
       matches: ^container_(.*)_seconds_total$
       as: ""
-    metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>,container_name!="POD"}[1m])) by (<<.GroupBy>>)
+    metricsQuery: node_memory_Active_bytes
   # - seriesQuery: '{__name__=~"^some_metric_count$"}'
   #   resources:
   #     template: <<.Resource>>
@@ -73,32 +73,32 @@ rules:
 #     matches: ""
 #     as: "my_external_metric"
 #   metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
-  resource: 
-    cpu:
-      containerQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>}[3m])) by (<<.GroupBy>>)
-      nodeQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>, id='/'}[3m])) by (<<.GroupBy>>)
-      resources:
-        overrides:
-          instance:
-            resource: node
-          namespace:
-            resource: namespace
-          pod_name:
-            resource: pod
-      containerLabel: container_name
-    memory:
-      containerQuery: sum(container_memory_working_set_bytes{<<.LabelMatchers>>}) by (<<.GroupBy>>)
-      nodeQuery: sum(container_memory_working_set_bytes{<<.LabelMatchers>>,id='/'}) by (<<.GroupBy>>)
-      resources:
-        overrides:
-          instance:
-            resource: node
-          namespace:
-            resource: namespace
-          pod_name:
-            resource: pod
-      containerLabel: container_name
-    window: 3m
+  resource: []
+    # cpu:
+    #   containerQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>}[3m])) by (<<.GroupBy>>)
+    #   nodeQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>, id='/'}[3m])) by (<<.GroupBy>>)
+    #   resources:
+    #     overrides:
+    #       instance:
+    #         resource: node
+    #       namespace:
+    #         resource: namespace
+    #       pod_name:
+    #         resource: pod
+    #   containerLabel: container_name
+    # memory:
+    #   containerQuery: sum(container_memory_working_set_bytes{<<.LabelMatchers>>}) by (<<.GroupBy>>)
+    #   nodeQuery: sum(container_memory_working_set_bytes{<<.LabelMatchers>>,id='/'}) by (<<.GroupBy>>)
+    #   resources:
+    #     overrides:
+    #       instance:
+    #         resource: node
+    #       namespace:
+    #         resource: namespace
+    #       pod_name:
+    #         resource: pod
+    #   containerLabel: container_name
+    # window: 3m
 
 service:
   annotations: {}
