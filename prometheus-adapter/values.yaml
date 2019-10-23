@@ -42,7 +42,7 @@ resources: {}
 
 rules:
   default: true
-  custom: []
+  custom: 
   - seriesQuery: '{__name__=~"^container_.*",container_name!="POD",namespace!="",pod!=""}'
     seriesFilters: []
     resources:
