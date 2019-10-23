@@ -43,13 +43,12 @@ resources: {}
 rules:
   default: false
   custom: 
-  - seriesQuery: 'node_memory_Active_bytes'
-    seriesFilters: []
+  - seriesQuery: 'node_memory_Active_bytes{namespace!="",kubernetes_pod_name!=""}'
     resources:
       overrides:
-        namespace:
+        kubernetes_namespace:
           resource: namespace
-        pod_name: 
+        kubernetes_pod_name: 
           resource: pods
     metricsQuery: 'node_memory_Active_bytes'
   # - seriesQuery: '{__name__=~"^some_metric_count$"}'
