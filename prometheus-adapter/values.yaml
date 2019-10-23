@@ -43,13 +43,13 @@ resources: {}
 rules:
   default: true
   custom: 
-- seriesQuery: '{__name__=~"^some_metric_count$"}'
-  resources:
-    template: <<.Resource>>
-  name:
-    matches: ""
-    as: "my_custom_metric"
-  metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
+  - seriesQuery: '{__name__=~"^some_metric_count$"}'
+    resources:
+      template: <<.Resource>>
+    name:
+      matches: ""
+      as: "my_custom_metric"
+    metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
   # Mounts a configMap with pre-generated rules for use. Overrides the
   # default, custom, external and resource entries
   existing:
