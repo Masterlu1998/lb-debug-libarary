@@ -43,7 +43,7 @@ resources: {}
 rules:
   default: false
   custom: 
-  - seriesQuery: '{__name__="node_memory_Active_bytes"}'
+  - seriesQuery: 'node_memory_Active_bytes{namespace!="",pod_name!=""}'
     seriesFilters: []
     resources:
       overrides:
@@ -51,10 +51,7 @@ rules:
           resource: namespace
         pod_name: 
           resource: pods
-    name:
-      matches: ^container_(.*)_seconds_total$
-      as: ""
-    metricsQuery: node_memory_Active_bytes
+    metricsQuery: '(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)'
   # - seriesQuery: '{__name__=~"^some_metric_count$"}'
   #   resources:
   #     template: <<.Resource>>
