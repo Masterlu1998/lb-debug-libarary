@@ -50,7 +50,7 @@ rules:
           resource: namespace
         pod: 
           resource: pod
-    metricsQuery: '(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)'
+    metricsQuery: '(<<.Series>>{<<.LabelMatchers>>})'
   # - seriesQuery: '{__name__=~"^some_metric_count$"}'
   #   resources:
   #     template: <<.Resource>>
