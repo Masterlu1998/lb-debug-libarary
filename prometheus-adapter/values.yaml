@@ -43,13 +43,18 @@ resources: {}
 rules:
   default: true
   custom: []
-# - seriesQuery: '{__name__=~"^some_metric_count$"}'
-#   resources:
-#     template: <<.Resource>>
-#   name:
-#     matches: ""
-#     as: "my_custom_metric"
-#   metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
+  - seriesQuery: '{__name__=~"^container_.*",container_name!="POD",namespace!="",pod!=""}'
+    seriesFilters: []
+    resources:
+      overrides:
+        namespace:
+          resource: namespace
+        pod: # 官方示例中的这个值为 pod_name，由于我之前将 pod_name 改为了 pod，所以这里也为 pod
+          resource: pods
+    name:
+      matches: ^container_(.*)_seconds_total$
+      as: ""
+    metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>,container_name!="POD"}[1m])) by (<<.GroupBy>>)
   # Mounts a configMap with pre-generated rules for use. Overrides the
   # default, custom, external and resource entries
   existing:
@@ -61,7 +66,19 @@ rules:
 #     matches: ""
 #     as: "my_external_metric"
 #   metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
-  resource: {}
+  resource: 
+    cpu:
+      containerQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>}[1m])) by (<<.GroupBy>>)
+      nodeQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>, id='/'}[1m])) by (<<.GroupBy>>)
+      resources:
+        overrides:
+          instance:
+            resource: nodes
+          namespace:
+            resource: namespace
+          pod:
+            resource: pods
+      containerLabel: container_name
 #   cpu:
 #     containerQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>}[3m])) by (<<.GroupBy>>)
 #     nodeQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>, id='/'}[3m])) by (<<.GroupBy>>)
