@@ -49,7 +49,7 @@ rules:
       overrides:
         namespace:
           resource: namespace
-        pod: # 官方示例中的这个值为 pod_name，由于我之前将 pod_name 改为了 pod，所以这里也为 pod
+        pod:
           resource: pods
     name:
       matches: ^container_(.*)_seconds_total$
