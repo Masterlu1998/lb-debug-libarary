@@ -43,7 +43,7 @@ resources: {}
 rules:
   default: false
   custom: 
-  - seriesQuery: '{namespace!="",pod!=""}'
+  - seriesQuery: '{namespace!="",pod!="",service!=""}'
     seriesFilters: []
     resources:
       overrides:
@@ -51,11 +51,13 @@ rules:
           resource: namespace
         pod:
           resource: pod
+        service:
+          resource: service       
     name:
       matches: (.*)_seconds_total$
       as: ""
     metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>}[5m])) by (<<.GroupBy>>)
-  - seriesQuery: '{namespace!="",pod!=""}'
+  - seriesQuery: '{namespace!="",pod!="",service!=""}'
     seriesFilters:
     - isNot: (.*)_seconds_total$
     resources:
@@ -64,12 +66,14 @@ rules:
           resource: namespace
         pod:
           resource: pod
+        service:
+          resource: service  
     name:
       matches: (.*)_total$
       as: ""
     metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>}[5m]))
       by (<<.GroupBy>>)
-  - seriesQuery: '{namespace!="",pod!=""}'
+  - seriesQuery: '{namespace!="",pod!="",service!=""}'
     seriesFilters:
     - isNot: (.*)_total$
     resources:
@@ -78,19 +82,14 @@ rules:
           resource: namespace
         pod:
           resource: pod
+        service:
+          resource: service  
     name:
       matches: (.*)$
       as: ""
     metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
   existing:
   external: []
-# - seriesQuery: '{__name__=~"^some_metric_count$"}'
-#   resources:
-#     template: <<.Resource>>
-#   name:
-#     matches: ""
-#     as: "my_external_metric"
-#   metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)
   resource: []
     # cpu:
     #   containerQuery: sum(rate(container_cpu_usage_seconds_total{<<.LabelMatchers>>}[3m])) by (<<.GroupBy>>)
