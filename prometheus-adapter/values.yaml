@@ -46,13 +46,7 @@ rules:
   - seriesQuery: '{namespace!="",pod!="",service!=""}'
     seriesFilters: []
     resources:
-      overrides:
-        namespace:
-          resource: namespace
-        pod:
-          resource: pod
-        service:
-          resource: service       
+      template: <<.Resource>>    
     name:
       matches: (.*)_seconds_total$
       as: ""
@@ -61,13 +55,7 @@ rules:
     seriesFilters:
     - isNot: (.*)_seconds_total$
     resources:
-      overrides:
-        namespace:
-          resource: namespace
-        pod:
-          resource: pod
-        service:
-          resource: service  
+      template: <<.Resource>>     
     name:
       matches: (.*)_total$
       as: ""
@@ -77,13 +65,7 @@ rules:
     seriesFilters:
     - isNot: (.*)_total$
     resources:
-      overrides:
-        namespace:
-          resource: namespace
-        pod:
-          resource: pod
-        service:
-          resource: service  
+      template: <<.Resource>>  
     name:
       matches: (.*)$
       as: ""
