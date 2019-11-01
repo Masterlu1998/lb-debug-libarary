@@ -47,6 +47,8 @@ rules:
     seriesFilters: []
     resources:
       overrides:
+        namespace:
+          resource: namespace
         pod:
           resource: pod
     name:
@@ -58,6 +60,8 @@ rules:
     - isNot: (.*)_seconds_total$
     resources:
       overrides:
+        namespace:
+          resource: namespace
         pod:
           resource: pod
     name:
@@ -70,6 +74,8 @@ rules:
     - isNot: (.*)_total$
     resources:
       overrides:
+        namespace:
+          resource: namespace
         pod:
           resource: pod
     name:
