@@ -47,12 +47,8 @@ rules:
     seriesFilters: []
     resources:
       overrides:
-        namespace:
-          resource: namespace
         pod:
           resource: pod
-        service:
-          resource: service       
     name:
       matches: (.*)_seconds_total$
       as: ""
@@ -62,12 +58,8 @@ rules:
     - isNot: (.*)_seconds_total$
     resources:
       overrides:
-        namespace:
-          resource: namespace
         pod:
           resource: pod
-        service:
-          resource: service  
     name:
       matches: (.*)_total$
       as: ""
@@ -78,12 +70,8 @@ rules:
     - isNot: (.*)_total$
     resources:
       overrides:
-        namespace:
-          resource: namespace
         pod:
           resource: pod
-        service:
-          resource: service  
     name:
       matches: (.*)$
       as: ""
